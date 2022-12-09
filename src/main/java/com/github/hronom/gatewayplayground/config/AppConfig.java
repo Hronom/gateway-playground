@@ -28,16 +28,18 @@ public class AppConfig {
 
     @Bean
     public GroupedOpenApi apis(SwaggerUiConfigProperties swaggerUiConfigProperties) {
-
         Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> urls = new HashSet<>();
 
-        locator.getRouteDefinitions().subscribe(routeDefinition -> {
-            logger.info("Discovered route definition: {}", routeDefinition.getId());
-            String resourceName = routeDefinition.getId();
-            String location = routeDefinition.getPredicates().get(0).getArgs().get("_genkey_0").replace("/**", API_URI);
-            logger.info("Adding swagger resource: {} with location {}", resourceName, location);
-            urls.add(new AbstractSwaggerUiConfigProperties.SwaggerUrl(resourceName, location, resourceName));
-        });
+//        locator.getRouteDefinitions().subscribe(routeDefinition -> {
+//            logger.info("Discovered route definition: {}", routeDefinition.getId());
+//            String resourceName = routeDefinition.getId();
+//            String location = routeDefinition.getPredicates().get(0).getArgs().get("_genkey_0").replace("/**", API_URI);
+//            logger.info("Adding swagger resource: {} with location {}", resourceName, location);
+//            urls.add(new AbstractSwaggerUiConfigProperties.SwaggerUrl(resourceName, location, resourceName));
+//        });
+        urls.add(new AbstractSwaggerUiConfigProperties.SwaggerUrl("auth", "https://raw.githubusercontent.com/Hronom/openapi-playground/main/openapi/auth/spec.yaml", null));
+        urls.add(new AbstractSwaggerUiConfigProperties.SwaggerUrl("user-search", "https://raw.githubusercontent.com/Hronom/openapi-playground/main/openapi/user-search/spec.yaml", null));
+        urls.add(new AbstractSwaggerUiConfigProperties.SwaggerUrl("user-search-v2", "https://raw.githubusercontent.com/Hronom/openapi-playground/main/openapi/user-search-v2/spec.yaml", null));
 
         swaggerUiConfigProperties.setUrls(urls);
 
